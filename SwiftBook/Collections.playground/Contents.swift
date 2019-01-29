@@ -162,3 +162,71 @@ if let valueConst = chessmans[figure] {
     
 } else {print("Ключ не найден")}
 
+
+
+var dictTest = [Int:Bool]()
+var arrayTest = 1...10
+//dictTest.forEach(<#T##body: ((key: Int, value: Int)) throws -> Void##((key: Int, value: Int)) throws -> Void#>)
+//arrayTest.filter{$0%2 == 0 {
+//
+//    dictTest[$0] = true
+//    }}
+print(arrayTest.filter{$0%2 == 0})
+
+print(arrayTest.forEach{$0
+
+    if $0%2 == 0 {
+        dictTest[$0] = true
+    }
+})
+
+let sordDict = dictTest.sorted{ $0.0 < $1.0}
+print(sordDict)
+
+dictTest.forEach{$0.0
+
+    dictTest[$0.0] = false
+}
+
+
+var newDict = [2:4, 4:2, 6:36]
+
+newDict.forEach{first,second in
+
+    print(first)
+
+}
+var sortNewDict = newDict.mapValues{$0 / 2}.sorted{$0.1 < $1.1}
+print(sortNewDict)
+
+
+
+var testString = " aaaa, bbbb "
+testString.replacingOccurrences(of: " ", with: "").split(separator: ",")
+
+var testString2 = "  asdasd asdasd "
+
+if testString2.first == " " {
+    testString2.removeFirst()
+    
+} else if testString2.last == " " {
+    testString2.removeLast()
+}
+
+testString2
+
+
+let source = "how now brown cow"
+var frequencies: [Character: Int] = [:]
+
+for c in source {
+    frequencies[c, default: 0] += 1
+}
+frequencies
+
+let contacts = ["Julia", "Susan", "John", "Alice", "Alex"]
+let grouped = Dictionary(grouping: contacts, by: { $0.first! })
+grouped
+
+var numbers = [1,2,3,4,5]
+numbers.swapAt(0,1)

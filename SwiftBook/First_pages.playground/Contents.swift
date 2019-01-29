@@ -2,6 +2,43 @@ import UIKit
 
 var str = "Hello, playground"
 
+////////////////////// String ////////////////
+
+let romeoAndJuliet = [
+    "Act 1 Scene 1: Verona, A public place",
+    "Act 1 Scene 2: Capulet's mansion",
+    "Act 1 Scene 3: A room in Capulet's mansion",
+    "Act 1 Scene 4: A street outside Capulet's mansion",
+    "Act 1 Scene 5: The Great Hall in Capulet's mansion",
+    "Act 2 Scene 1: Outside Capulet's mansion",
+    "Act 2 Scene 2: Capulet's orchard",
+    "Act 2 Scene 3: Outside Friar Lawrence's cell",
+    "Act 2 Scene 4: A street in Verona",
+    "Act 2 Scene 5: Capulet's mansion",
+    "Act 2 Scene 6: Friar Lawrence's cell"
+]
+
+var act1SceneCount = 0
+
+for scene in romeoAndJuliet {
+    if scene.hasPrefix("Act 1 ") {
+        act1SceneCount += 1
+    }
+}
+//print("There are \(act1SceneCount) scenes in Act 1")
+
+
+var mansionCount = 0
+var cellCount = 0
+for scene in romeoAndJuliet {
+    if scene.hasSuffix("Capulet's mansion") {
+        mansionCount += 1
+    } else if scene.hasSuffix("Friar Lawrence's cell") {
+        cellCount += 1
+    }
+}
+//print("\(mansionCount) mansion scenes; \(cellCount) cell scenes")
+
 //: Это веслеуха! // Так можно отобразить комментарий в поиске! Как TODO
 
 //var number = 55; print(number)
@@ -1499,4 +1536,310 @@ kingWhite.coordinates
 
 
 
+var testString = " aaaa, bbbb "
+testString.replacingOccurrences(of: " ", with: "").split(separator: ",")
+
+var testString2 = "  asdasd asdasd "
+
+if testString2.first == " " {
+    testString2.removeFirst()
+    
+} else if testString2.last == " " {
+        testString2.removeLast()
+    }
+
+testString2
+
+
+let source = "how now brown cow"
+var frequencies: [Character: Int] = [:]
+
+for c in source {
+    frequencies[c, default: 0] += 1
+}
+frequencies
+
+let contacts = ["Julia", "Susan", "John", "Alice", "Alex"]
+let grouped = Dictionary(grouping: contacts, by: { $0.first! })
+grouped
+
+var numbers = [1,2,3,4,5]
+numbers.swapAt(0,1)
+
+////////////////////// Propertes ///////////
+
+/////////////////// Работа с экземплярами типа /////////
+
+struct Circel {
+    
+    var coordinates: (x: Int, y: Int)
+    var radius: Float
+    // Вычеслаемые properties с помощью замыканий
+    var perimetr: Float {
+        
+        get {
+            return 3.14 * 2.0 * self.radius
+        }
+        
+        set(newValue) {
+            
+            self.radius = newValue / (3.14 * 2.0)
+        }
+        
+    }
+}
+
+var circleTest = Circel(coordinates: (0,0), radius: 10)
+circleTest.perimetr
+circleTest.perimetr = 31.4
+circleTest.radius
+
+
+/////// Observer Наблюдатели ///////////
+
+
+struct Circel_2 {
+    
+    var coordinates: (x: Int, y: Int)
+    var radius: Float {
+        
+        // Это мы делаем перед установкой
+        willSet(newValue) {
+            
+            print("Вместо старого значения \(self.radius) установим \(newValue)")
+        }
+        
+        // Это мы делаем сразу после назначения нового значение
+        didSet(oldValue) {
+            
+            print("Вместо старого значения \(oldValue) установим \(self.radius)")
+        }
+        
+        
+    }
+    // Вычеслаемые properties с помощью замыканий
+    var perimetr: Float {
+        
+        get {
+            return 3.14 * 2.0 * self.radius
+        }
+        
+        set(newValue) {
+            
+            self.radius = newValue / (3.14 * 2.0)
+        }
+        
+    }
+}
+
+//var circel_Test_2 = Circel_2(coordinates: (x:0,y:0), radius: 15.0)
+//circel_Test_2.radius = 10
+
+
+///////////// Свойства типа ///////////
+
+//struct SomeStructure {
+//
+//    static var storedTypeProperty = "Some value"
+//    static var computedTypeProperty: Int {
+//        return 1 }
+//}
+//
+//SomeStructure.storedTypeProperty
+//
+//class SomeClass{
+//    static var storedTypeProperty = "Some value."
+//
+//    static var computedTypeProperty: Int {
+//        return 3
+//    }
+//
+//    // Это свойвство нужно чтобы его мог использовать подкласс
+//    class var overrideableComputedTypeProperty: Int {
+//        return 4
+//    }
+//}
+//
+//
+//struct AudioChannel {
+//
+//    // type stored property
+//    static var maxVolume = 5
+//
+//    //Storedproperty - хранит какое то значение
+//    var volume: Int {
+//
+//        didSet {
+//            if volume > AudioChannel.maxVolume {
+//                volume = AudioChannel.maxVolume
+//                }
+//        }
+//    }
+//}
+//
+//var LeftChannel = AudioChannel(volume: 2)
+//
+//var RightChannel = AudioChannel(volume: 3)
+//
+//RightChannel.volume = 6
+//RightChannel.volume
+//
+//AudioChannel.maxVolume = 10
+//RightChannel.volume = 6
+//RightChannel.volume
+
+/////////////////////// Subscripts  for Struct and Class //////////////
+
+//class GameDesk {
+//
+//    var desk: [Int:[String:Chessman]] = [:]
+//
+//    init(){
+//        for i in 1...8 {
+//            desk[i] = [:]
+//        }
+//    }
+//
+//    subscript(alpha: String, number: Int) -> Chessman? {
+//
+//        get {
+//                // Если не nil то вернем значение или дефолт
+//                return self.desk[number]![alpha] ?? nil
+//        }
+//        set {
+//
+//            if let constValue = newValue {
+//
+//                self.setChessman(chess: newValue!, coordinates:(alpha, number))
+//            } else {
+//
+//                // nil
+//            }
+//
+//        }
+//
+//    }
+//
+//    func setChessman(chess:Chessman, coordinates:(String,Int)) {
+//
+//        self.desk[coordinates.1]![coordinates.0] = chess
+//        chess.setCoordinates(char: coordinates.0, num: coordinates.1)
+//
+//     }
+//}
+//
+//
+//var game = GameDesk()
+//var QueenBlack = Chessman(type: .quen, color: .black, figure:
+//    "♛", coordinates: ("A", 6))
+//
+//game.setChessman(chess: QueenBlack, coordinates: ("A",3))
+//game["C",5] = QueenBlack
+//QueenBlack.coordinates
+
+
+
+
+////////////// Наследование ////////////
+
+// суперкласс
+class Quadruped {
+    var type = ""
+    var name = ""
+    func walk(){
+        print("walk")
+    }
+}
+
+class Dog: Quadruped {
+    func bark(){
+        print("woof")
+    }
+}
+
+var dog = Dog()
+dog.type = "dog"
+//dog.walk() // выводит walk 18
+//dog.bark() // выводит woof
+
+/// переопределение метода
+
+class NoisyDog: Dog{
+    override func bark(){
+        print ("woof")
+        print ("woof")
+        print ("woof")
+    }
+}
+var badDog = NoisyDog()
+//badDog.bark()
+
+
+// Доступ к родительскому методу! Даже если мы переопределил
+
+class NoisyDog_2: Dog{
+    
+    override func bark() {
+        
+        for _ in 1...3  {
+            super.bark()
+        }
+    }
+}
+
+var badDog_2 = NoisyDog_2()
+//badDog_2.bark()
+
+/////// Переопределим инициализатор /////
+
+class Dog_init: Quadruped {
+    
+    override init(){
+        super.init()
+        self.type = "dog"
+    }
+    
+    func bark(){
+        print("woof")
+    }
+    
+    func printName(){
+        print(self.name)
+    }
+    
+}
+
+//// Для защиты от наследование перед свойством или методом ставим final
+
+
+// Все подклассы также относятся к типа родительского класса
+var animalsArray: [Quadruped] = []
+var someAnimal = Quadruped()
+var myDog = Dog()
+var badDog_3 = NoisyDog()
+animalsArray.append(someAnimal)
+animalsArray.append(myDog)
+animalsArray.append(badDog_3)
+
+
+// проверить наследие !
+//if myDog is Quadruped {
+//
+//    print("YEs")
+//}
+
+// Чтобы вызвать методы которые не существую в Quadruped
+
+
+for item in animalsArray {
+    
+    if let animal = item as? NoisyDog {
+        animal.bark()
+    }else if let animal = item as? Dog {
+        animal.bark()
+    }else{
+        item.walk()
+    
+    }
+}
 
