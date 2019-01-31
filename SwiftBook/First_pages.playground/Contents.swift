@@ -1742,7 +1742,7 @@ struct Circel_2 {
 
 ////////////// Наследование ////////////
 
-// суперкласс
+//// суперкласс
 class Quadruped {
     var type = ""
     var name = ""
@@ -1750,20 +1750,20 @@ class Quadruped {
         print("walk")
     }
 }
-
+//
 class Dog: Quadruped {
     func bark(){
         print("woof")
     }
 }
-
-var dog = Dog()
-dog.type = "dog"
-//dog.walk() // выводит walk 18
-//dog.bark() // выводит woof
-
-/// переопределение метода
-
+//
+//var dog = Dog()
+//dog.type = "dog"
+////dog.walk() // выводит walk 18
+////dog.bark() // выводит woof
+//
+///// переопределение метода
+//
 class NoisyDog: Dog{
     override func bark(){
         print ("woof")
@@ -1771,26 +1771,127 @@ class NoisyDog: Dog{
         print ("woof")
     }
 }
-var badDog = NoisyDog()
-//badDog.bark()
+//var badDog = NoisyDog()
+////badDog.bark()
+//
+//
+//// Доступ к родительскому методу! Даже если мы переопределил
+//
+//class NoisyDog_2: Dog{
+//
+//    override func bark() {
+//
+//        for _ in 1...3  {
+//            super.bark()
+//        }
+//    }
+//}
+//
+//var badDog_2 = NoisyDog_2()
+////badDog_2.bark()
+//
+///////// Переопределим инициализатор /////
+//
+//class Dog_init: Quadruped {
+//
+//    override init(){
+//        super.init()
+//        self.type = "dog"
+//    }
+//
+//    func bark(){
+//        print("woof")
+//    }
+//
+//    func printName(){
+//        print(self.name)
+//    }
+//
+//}
+//
+////// Для защиты от наследование перед свойством или методом ставим final
+//
+//
+//// Все подклассы также относятся к типа родительского класса
+//var animalsArray: [Quadruped] = []
+//var someAnimal = Quadruped()
+//var myDog = Dog()
+//var badDog_3 = NoisyDog()
+//animalsArray.append(someAnimal)
+//animalsArray.append(myDog)
+//animalsArray.append(badDog_3)
+//
+//
+//// проверить наследие !
+////if myDog is Quadruped {
+////
+////    print("YEs")
+////}
+//
+//// Чтобы вызвать методы которые не существую в Quadruped
+//
+//
+//for item in animalsArray {
+//
+//    if let animal = item as? NoisyDog {
+//        animal.bark()
+//    }else if let animal = item as? Dog {
+//        animal.bark()
+//    }else{
+//        item.walk()
+//
+//    }
+//}
 
 
-// Доступ к родительскому методу! Даже если мы переопределил
 
-class NoisyDog_2: Dog{
-    
-    override func bark() {
-        
-        for _ in 1...3  {
-            super.bark()
-        }
-    }
-}
+ ////////////// ANY ////////////
 
-var badDog_2 = NoisyDog_2()
-//badDog_2.bark()
 
-/////// Переопределим инициализатор /////
+var things = [Any]()
+things.append(0)
+things.append(0.0)
+things.append(42)
+things.append("hello")
+things.append((3.0, 5.0))
+things.append({ (name: String) -> String in "Hello, \(name)" })
+
+
+//for thing in things {
+//
+//    switch thing {
+//    case let someInt as Int:
+//        print("an integer value of \(someInt)")
+//    case let someDouble as Double where someDouble > 0:
+//        print("a positive double value of \(someDouble)")
+//    case let someString as String:
+//        print("a string value of \"\(someString)\"")
+//    case let (x, y) as (Double, Double):
+//        print("an (x, y) point at \(x), \(y)")
+//    case let stringConverter as (String) -> String:
+//        print(stringConverter("Troll"))
+//    default:
+//        print("something else")
+//    }
+//
+//}
+
+//let someObjects: [AnyObject] = [Dog(),NoisyDog(),Dog()]
+//
+//for object in someObjects {
+//    _ = object as! Dog
+//    print("This is bad Dog")
+//
+//}
+//
+//for object in someObjects as! [Dog]{
+//    print("This is bad Dog")
+//    }
+
+///////////////////// ИНИЦИАЛИЗАТОРЫ и ДЕИНИЦИАЛИЗАТОРЫ ///////
+
+// Вспомогательный инициализатор
+
 
 class Dog_init: Quadruped {
     
@@ -1799,47 +1900,258 @@ class Dog_init: Quadruped {
         self.type = "dog"
     }
     
+    convenience init(text: String){
+        self.init()
+        print(text)
+    }
+    
     func bark(){
         print("woof")
     }
-    
+        
     func printName(){
-        print(self.name)
+            print(self.name)
     }
-    
 }
 
-//// Для защиты от наследование перед свойством или методом ставим final
+var myDog = Dog_init(text: "Wasap NIGA")
 
 
-// Все подклассы также относятся к типа родительского класса
-var animalsArray: [Quadruped] = []
-var someAnimal = Quadruped()
-var myDog = Dog()
-var badDog_3 = NoisyDog()
-animalsArray.append(someAnimal)
-animalsArray.append(myDog)
-animalsArray.append(badDog_3)
+///// Проваливающийся инициализатор ////////
 
 
-// проверить наследие !
-//if myDog is Quadruped {
+class Rectangle{
+    
+    var height: Int
+    var weight: Int
+    
+    init?(height h: Int, weight w: Int){
+        self.height = h
+        self.weight = w
+        if !(h > 0 && w > 0) {
+            return nil
+        }
+
+    }
+}
+
+var rectangle = Rectangle(height: 56, weight: -32)
+
+enum TemperatureUnit {
+    
+    case Kelvin, Celsius, Fahrenheit
+    
+    init?(symbol: Character) {
+        
+        switch symbol {
+        case "K":
+            self = .Kelvin
+        case "C":
+            self = .Celsius
+        case "F":
+            self = .Fahrenheit
+        default:
+            return nil
+        }
+    }
+}
+
+//let fahrenheitUnit = TemperatureUnit(symbol: "F")
+
+// Если перечисление имеет встроенное значение то унеог есть встроенный проваливающийся инициализатор
+enum TemperatureUnit_Raw: Character {
+    case Kelvin = "K", Celsius = "C", Fahrenheit = "F"
+}
+let fahrenheitUnit = TemperatureUnit_Raw(rawValue: "F")
+fahrenheitUnit!.hashValue
+
+
+//// Обязательный инициализатор ////
+
+
+//required init() {
 //
-//    print("YEs")
+//    /// тело инициализатора
 //}
 
-// Чтобы вызвать методы которые не существую в Quadruped
+//////////// Deinit ////////
 
-
-for item in animalsArray {
+class SuperClass {
     
-    if let animal = item as? NoisyDog {
-        animal.bark()
-    }else if let animal = item as? Dog {
-        animal.bark()
-    }else{
-        item.walk()
+    init?(isNil: Bool){
+        
+        if isNil == true {
+            return nil
+        }else{
+            print("Экземпляр создан")
+        }
+    }
+            
+    deinit {
+            print("Деинициализатор суперкласса")
+                
+    }
+       
+}
+    
+    
+class SubClass:SuperClass{
+    
+    deinit {
+         print("Деинициализатор подкласса")
     
     }
+    
 }
+
+//var obj = SubClass(isNil: false)
+//obj = nil
+
+
+//////////// Delete ARc ///////
+
+
+
+class myClass{
+
+    var description: String
+
+    init(description: String){
+            print("Экземпляр \(description) создан")
+            self.description = description
+    }
+
+     deinit{
+
+        print("Экземпляр \(self.description) уничтожен")
+    }
+}
+//
+//var myVar1 = myClass(description: "ОДИН")
+//
+//if true {
+//
+//    var myVar2 = myClass(description: "ДВА")
+//
+//}
+
+
+//var myVar1 = myClass(description: "ОДИН")
+//var myVar2 = myVar1
+//
+//
+//myVar1 = myClass(description: "ДВА")
+//myVar2 = myVar1
+
+
+
+ //////////// Утечка памяти! Есть множство ссылок друг на друга в локальной области видимости
+
+//class Human {
+//    let name: String
+//    var child = [Human?]()
+//    var father: Human?
+//    var mother: Human?
+//
+//
+//
+//    init(name: String){
+//        self.name = name
+//    }
+//    deinit {
+//        print(self.name + "   - delete ")
+//    }
+//}
+//
+//if 1==1 {
+//
+//    var Kirill = Human(name: "Кирилл")
+//    var Olga = Human(name: "Ольга")
+//    var Aleks = Human(name: "Алексей")
+//    Kirill.father = Aleks
+//    Kirill.mother = Olga
+//    Aleks.child.append(Kirill)
+//    Olga.child.append(Kirill)
+//}
+
+
+/// weak не работает я хз
+//class Human {
+//    let name: String
+//    var child = [Human?]()
+//    weak var father: Human?
+//    weak var mother: Human?
+//
+//    init(name: String){
+//        self.name = name
+//    }
+//    deinit {
+//        print(self.name + "   - delete ")
+//    }
+//}
+//
+//if 1==1 {
+//
+//    let Kirill = Human(name: "Кирилл")
+//    let Olga = Human(name: "Ольга")
+//    let Aleks = Human(name: "Алексей")
+//    Kirill.father = Aleks
+//    Kirill.mother = Olga
+//    Aleks.child.append(Kirill)
+//    Olga.child.append(Kirill)
+//}
+
+
+////// Auto reference Control ////
+
+//class Human{
+//var name = "Человек"
+//    deinit{
+//        print("Объект удален")
+//    }
+//}
+//
+//var closure : (() -> ())?
+//
+//if true {
+//
+//    var human = Human()
+//
+//    closure = {
+//        print(human.name)
+//    }
+//    closure!()
+//}
+//
+//print("Программа завершена")
+
+
+
+
+
+
+class Human{
+    var name = "Человек"
+    deinit{
+        print("Объект удален")
+    }
+}
+
+var closure : (() -> ())?
+
+if true {
+    
+    let human = Human()
+    
+    closure = {
+        [unowned human] in
+        print(human.name)
+    }
+    closure!()
+}
+
+print("Программа завершена")
+
+
+
 
