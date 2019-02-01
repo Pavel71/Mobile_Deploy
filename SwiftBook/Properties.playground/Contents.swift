@@ -121,3 +121,8 @@ RightChannel.volume
 AudioChannel.maxVolume = 10
 RightChannel.volume = 6
 RightChannel.volume
+
+
+var ll = true
+
+ll ? print("LF") : print("nn")
