@@ -22,8 +22,9 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
-class CategoryTableViewController: UITableViewController {
+class CategoryTableViewController: SwipeTableViewController {
     
     // Соединение с базой данных
     let realm = try! Realm()
@@ -43,7 +44,7 @@ class CategoryTableViewController: UITableViewController {
     }
 
 
-    // MARK: - Table view DATASOURCE
+    // MARK: - Table view DATASOURCE and SwipeCellDelegaet
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemCategoryArray?.count ?? 1
@@ -52,14 +53,43 @@ class CategoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         cell.textLabel?.text = itemCategoryArray?[indexPath.row].name ?? "No category"
         
-        cell.accessoryType = .disclosureIndicator
         
+        cell.accessoryType = .disclosureIndicator
+        // поставить цвет стрелочкам справа
+
+        
+        let image = UIImage(named:"arrow")
+
+        let disclosureImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+        disclosureImageView.image = image
+        cell.accessoryView = disclosureImageView
+
+        
+
+        
+        if let backgroundColorString = itemCategoryArray?[indexPath.row].backroundColor {
+            
+            guard let backgroundColor = UIColor(hexString: backgroundColorString) else {fatalError()}
+            
+            cell.backgroundColor = backgroundColor
+            cell.textLabel?.textColor = ContrastColorOf(backgroundColor, returnFlat: true)
+            
+            
+        }
+        
+        
+
         return cell
     }
+    
+    
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 70
+//    }
     
     // MARK: - Table view DELEGATE
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -68,7 +98,6 @@ class CategoryTableViewController: UITableViewController {
         // Осуществляю переход
         performSegue(withIdentifier: "goToTodoye", sender: self)
     }
-
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -83,15 +112,13 @@ class CategoryTableViewController: UITableViewController {
 
         }
 
-
     }
     
     //MARK: - ADD Button
     
     // При добавлении категории Создаем класси сохраняем изменени в БД
     @IBAction func addButton(_ sender: UIBarButtonItem) {
-        
-        
+
         var textFieldAlert = UITextField()
         
         // Вызовем Алерт с текстовым полем
@@ -102,6 +129,7 @@ class CategoryTableViewController: UITableViewController {
             
             let newCategory = Category()
             newCategory.name = textFieldAlert.text!
+            newCategory.backroundColor = UIColor.randomFlat.hexValue()
 
             self.save(category: newCategory)
         }
@@ -114,42 +142,55 @@ class CategoryTableViewController: UITableViewController {
         controller.addAction(action)
         
         present(controller,animated: true,completion: nil)
-        
-     
+
     }
     
-    
-    //MARK: SAVE and LOAD
-    // Сохраняем категории в БД
-    
+ 
+    //# MARK: - SAVE and LOAD
     func save(category: Category) {
 
         do {
-            
             try realm.write {
                 realm.add(category)
             }
-            
         } catch {
-            
             print("Saving data Error \(error)")
         }
-        
         self.tableView.reloadData()
     }
-    
-    
-    
+
     // Подгружаем все данные из таблички
     func loadCategory() {
-        
         itemCategoryArray = realm.objects(Category.self)
-
         self.tableView.reloadData()
-
     }
     
+    // MARK: - Delete and READ from Swipe
+    override func deleteRow(at indexPath: IndexPath) {
+
+        
+        if let category = self.itemCategoryArray?[indexPath.row] {
+            do {
+                try self.realm.write {
+
+                    self.realm.delete(category)
+                }
+            } catch {
+                print("Delete Category Real Error \(error)")
+            }
+        }
+    }
+    
+    override func readMore(at indexPath: IndexPath) {
+        print("Push read More information")
+    }
+    
+    
 }
+
+
+
+
 
 
 

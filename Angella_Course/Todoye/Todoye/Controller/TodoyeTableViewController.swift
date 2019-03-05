@@ -8,8 +8,9 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
-class TodoyeTableViewController: UITableViewController {
+class TodoyeTableViewController: SwipeTableViewController {
     
     
     @IBOutlet var searchBarOutlet: UISearchBar!
@@ -25,10 +26,8 @@ class TodoyeTableViewController: UITableViewController {
         didSet {
             
             categoryItemsString = selectedCategory!.name
-            
             loadItems()
-
-            self.navigationItem.title = categoryItemsString
+            
         }
         
     }
@@ -40,11 +39,63 @@ class TodoyeTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+     
+        
+    }
+    
+    // Самый последний метода перед показом экрана! Здесь Навигатор уже подгружен
+    override func viewWillAppear(_ animated: Bool) {
+        
+        title = categoryItemsString
+        
+        
+        
+        guard let colorHex = selectedCategory?.backroundColor else {fatalError()}
+        
+        updateSearchBar(withHexCode: colorHex)
+        updateNavBar(withHexCode: colorHex)
+    }
+    
+    // перед тем как вернутся на другой экран
+    override func viewWillDisappear(_ animated: Bool) {
+        
+//        guard let originalColor = UIColor(hexString: "1D9BF6") else {fatalError()}
+        
+        updateNavBar(withHexCode: "1D9BF6")
+        
+    }
+    
+    // MARK: - Nav Bar Methods
+    
+    func updateNavBar(withHexCode colorHex: String) {
+        
+        
+        guard let navBar = navigationController?.navigationBar else {fatalError("FatalController does not exist.")}
+       
+        
+        guard let navBarColor = UIColor(hexString: colorHex) else {fatalError()}
+        // Вредная полосечка
+            
+        navBar.barTintColor = navBarColor
+        navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+        navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(navBarColor, returnFlat: true)]
+        
+    }
+    
+    func updateSearchBar(withHexCode colorHex: String) {
+        
+        // Вредная полосечка вокруг Searchbar
+        searchBarOutlet.layer.borderWidth = 1
+        searchBarOutlet.layer.borderColor = UIColor(hexString: colorHex)!.cgColor
+        navigationController?.hidesNavigationBarHairline = true
+        searchBarOutlet.barTintColor = UIColor(hexString: colorHex)
+        
     }
     
  
     //MARK: - TableViewDataSource Methods
+    
     
     // Сколько строчек в секторе
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,13 +106,22 @@ class TodoyeTableViewController: UITableViewController {
     // Какой тип ячейки отобразить
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
+       
         if let item = itemExemplArray?[indexPath.row] {
             
             cell.textLabel?.text = item.value
             
             cell.accessoryType = item.done ? .checkmark : .none
+
+            // С черным цветом это не работает!
+            if let color = UIColor(hexString: selectedCategory!.backroundColor!)!.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(itemExemplArray!.count)) {
+                
+                cell.backgroundColor = color
+                cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+            }
+            
             
         } else {
             
@@ -83,10 +143,8 @@ class TodoyeTableViewController: UITableViewController {
             do {
                 
                 try realm.write {
-                    // Update
+
                     item.done = !item.done
-                    //Delete
-                    // realm.delete(item)
                 }
                 
             } catch {
@@ -119,10 +177,11 @@ class TodoyeTableViewController: UITableViewController {
                     
                     try self.realm.write {
                         
+                        
                         let item = Item()
                         item.value = nameTextField.text!
                         item.dateCreated = Date()
-                        
+
                         currentCategory.itemList.append(item)
                     }
                     
@@ -150,10 +209,8 @@ class TodoyeTableViewController: UITableViewController {
 
         present(controller,animated: true,completion: nil)
     }
-    
-    
+
     //MARK: - SaveData and Load
-    
 
     func loadItems() {
         
@@ -170,11 +227,35 @@ class TodoyeTableViewController: UITableViewController {
 
         self.tableView.reloadData()
     }
+    
+    // MARK: - Swipe DELETE and READ methods
+    override func deleteRow(at indexPath: IndexPath) {
+        
+        if let item = itemExemplArray?[indexPath.row] {
+            
+            do {
+                try realm.write {
+                    realm.delete(item)
+                }
+            }catch {
+                print("Delete Item Error \(error)")
+            }
+            
+        }
+    }
+    
+    override func readMore(at indexPath: IndexPath) {
+        print("Read More item info")
+    }
 
 }
 
 
-//MARK: - Search bar methods
+
+
+
+
+// MARK: - Search bar methods
 
 extension TodoyeTableViewController : UISearchBarDelegate {
     
@@ -184,8 +265,6 @@ extension TodoyeTableViewController : UISearchBarDelegate {
         // Задача стоит в том чтобы сортировать объекты по дате создания!
         
         itemExemplArray = itemExemplArray?.filter("value CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
-        
-//        itemExemplArray = itemExemplArray?.filter("value CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "value", ascending: true)
         
         tableView.reloadData()
 

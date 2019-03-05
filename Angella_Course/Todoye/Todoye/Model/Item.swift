@@ -12,6 +12,7 @@ import RealmSwift
 class Item: Object {
     
     @objc dynamic var value: String = ""
+    @objc dynamic var backgroundColor: String = ""
     @objc dynamic var done: Bool = false
     @objc dynamic var dateCreated: Date?
 
