@@ -14,17 +14,25 @@ class RegisterViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var registerButton: UIButton!
   
+  
   // То что передаем из других классов
   private weak var sexSegment: UISegmentedControl!
-  private weak var emailTextField: UITextField!
-  private weak var passwordTextField: UITextField!
+  
+  private  var email = ""
+  private  var password = ""
+  
+  private var registerModel = RegisterModel()
   
   private var models: [HeaderModels] = [.info, .sex, .birthday]
   
   private let datePickerView: UIDatePicker = {
     let picker = UIDatePicker()
     picker.maximumDate = Date()
+    picker.datePickerMode = .date
     
+    
+    
+    // add toolbar to textField
     return picker
   }()
   
@@ -38,18 +46,112 @@ class RegisterViewController: UIViewController {
     
     
     configureDatePickerView()
+    addRightBarButton()
+    
+    // Попробую передать информацию через Notification
+    
+    setNotification()
     
   }
   
-  private func configureDatePickerView() {
+  override func viewWillDisappear(_ animated: Bool) {
+    // Снять все обсерверы и тогда не будет коллизий
+    NotificationCenter.removeObserver(self, forKeyPath: Notification.Name.didTextFieldEnding.rawValue)
+  }
+
+  // MARK: Notification method
+  
+  func setNotification() {
+    // Устанавливаем приемник На нажатие на текстовые поля
+    NotificationCenter.default.addObserver(self, selector: #selector(textDidChangeEnd), name: UITextField.textDidEndEditingNotification, object: nil)
     
+    // Устанавливаем приемник на нажатие на загрузить фото
+    NotificationCenter.default.addObserver(self, selector: #selector(photoViewClickedSelect), name: .didClickedAddPhoto, object: nil)
+    
+  }
+  
+  // Обрабатываем текстовые поля! Метод ловит все изменения во всех текстовых полях на экране
+  @objc func textDidChangeEnd(ncParam: NSNotification) {
+    
+    print(ncParam)
+
+    print("Notification Text Field ")
+    guard let textField = ncParam.object as? UITextField else {
+      fatalError("Не получил объект")
+    }
+    
+    if let stringField = textField.text {
+      
+      switch textField.tag {
+      case 0:
+        registerModel.email = stringField
+
+      case 1:
+        registerModel.password = stringField
+      case 2:
+        registerModel.birthday = datePickerView.date
+
+        let format = DateFormatter()
+        format.dateFormat = "dd/MM/yyyy"
+        // Хочу чтобы дата отображалась в поле
+        textField.text = format.string(from: datePickerView.date)
+
+      default: break
+      }
+    }
+    
+  }
+  
+  // Через Клоузер
+  private func workWithTextFields(textField: UITextField) {
+    
+    if let stringField = textField.text {
+      
+      switch textField.tag {
+      case 0:
+        email = stringField
+      case 1:
+        password = stringField
+        
+      default: break
+      }
+    }
+    
+  }
+  
+  private func addRightBarButton() {
+    
+    // Создаем кнопку и срзу на нее прописываем target
+    let barButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(rightBarButtonClicked))
+    
+    navigationItem.rightBarButtonItem = barButton
+  }
+  
+  @objc private func rightBarButtonClicked(sender: UIBarButtonItem) {
+    
+    guard registerModel.isFilled else {
+      showAlert(with: "Ошибка", and: "Пожалуйста заполните все поля")
+      return
+    }
+    
+    AuthManager.shared.register(with: registerModel) {
+      
+      showAlert(with: "Успешно", and: "Вы зарегестрированны")
+    }
+
+  }
+  
+  
+  // MARK: DatePicker - Обработка
+  private func configureDatePickerView() {
+    // Можно через делегат запилить
     datePickerView.addTarget(self, action: #selector(datePickerChanged(sender:)), for: .valueChanged)
     
   }
   
   @objc private func datePickerChanged(sender: UIDatePicker) {
     let date = sender.date
-    print(date)
+    registerModel.birthday = date
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -84,10 +186,33 @@ class RegisterViewController: UIViewController {
     
   }
   
+  // Метод срабатывает когда уходим из контроллера и преходим к другому
+  // Тогда и можно снять обсерверы
+ 
+  
   private func delegateing() {
     
     tableView.delegate = self
     tableView.dataSource = self
+  }
+  
+  // Notification
+  @objc func photoViewClickedSelect() {
+    
+    print("Работает Notification")
+    let imagePickerController = UIImagePickerController()
+    imagePickerController.delegate = self
+    imagePickerController.sourceType = .photoLibrary
+    present(imagePickerController,animated: true,completion: nil)
+  }
+  
+  
+  private func photoViewClicked() {
+    
+    let imagePickerController = UIImagePickerController()
+    imagePickerController.delegate = self
+    imagePickerController.sourceType = .photoLibrary
+    present(imagePickerController,animated: true,completion: nil)
   }
   
   private func registerCells() {
@@ -99,14 +224,56 @@ class RegisterViewController: UIViewController {
     tableView.register(BirthdayTableViewCell.nib, forCellReuseIdentifier: BirthdayTableViewCell.name)
   }
   
+  private func setSexSegmentValue() {
+    
+    // В зависимости от выбранного сегмента Устанавливаем значение в модель
+    registerModel.sex = sexSegment.selectedSegmentIndex == 0 ? .male : .female
+
+  }
+  
   // Нажимаем кнопку и собираютс данные для регистрации
   @IBAction func pushRegisterButton(_ sender: UIButton) {
     
+    setSexSegmentValue()
+    
     print("Кнопочка")
-    print(sexSegment.selectedSegmentIndex)
+    print("Пол - \(String(describing: registerModel.sex?.rawValue))")
+    print("Email - \(registerModel.email) Password - \(registerModel.password)")
+    print("День рождения \(registerModel.birthday)")
+    
+    
+    AuthManager.shared.register(with: registerModel) {
+      
+      showAlert(with: "Успешно", and: "Вы зарегестрированны")
+    }
   }
   
   
+}
+
+// MARK: UINavigationControllerDelegate
+
+extension RegisterViewController: UINavigationControllerDelegate {
+  
+}
+
+// MARK: UIImagePickerViewController
+
+extension RegisterViewController: UIImagePickerControllerDelegate {
+  
+  // Метод который откроет фотки
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    
+    picker.dismiss(animated: true, completion: nil)
+    
+    guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+      fatalError("Нет картинки")
+    }
+    
+    registerModel.photo = image
+    tableView.reloadData()
+    
+  }
 }
 
 
@@ -198,6 +365,7 @@ extension RegisterViewController: UITableViewDataSource {
     return models[section].cellModel.count
   }
   
+  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
     let model = models[indexPath.section].cellModel[indexPath.row]
@@ -206,6 +374,20 @@ extension RegisterViewController: UITableViewDataSource {
       
     case.userInfo:
       if let cell = tableView.dequeueReusableCell(withIdentifier: UserInfoTableViewCell.name, for: indexPath) as? UserInfoTableViewCell {
+        
+
+        
+        // Передал ссылк из метода делегата в этот файл
+//        cell.textFieldEndEdid = workWithTextFields
+        
+        // Теперь эта ячейка имеет блок кода который исполнится при нажатие на нее в этом контроллере
+//        cell.photoViewClicked = photoViewClicked
+        
+        // Для наглядности
+        cell.emailTextField.tag = 0
+        cell.passwordTextField.tag = 1
+        
+        cell.set(image: registerModel.photo)
         return cell
       }
       
@@ -231,7 +413,19 @@ extension RegisterViewController: UITableViewDataSource {
       if let cell = tableView.dequeueReusableCell(withIdentifier: BirthdayTableViewCell.name, for: indexPath) as? BirthdayTableViewCell {
         cell.set(text: "Дата рождения:")
         
+        // Установим toolbar
+        let toolbar = UIToolbar();
+        toolbar.sizeToFit()
+        
+        // Кнопка // Можно настроить ее обработку!
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: nil)
+        
+        toolbar.setItems([doneButton], animated: false)
+        
         // Можем поместить pickerView в textField
+        // Устанавливаем tag
+        cell.birthdayTextField.tag = 2
+        cell.birthdayTextField.inputAccessoryView = toolbar
         cell.birthdayTextField.inputView = datePickerView
         return cell
       }
