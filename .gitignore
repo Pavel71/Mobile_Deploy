@@ -8,3 +8,4 @@ Podfile.lock
 *.png
 *.wav
 venv
+*.caffemodel
