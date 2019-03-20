@@ -1,0 +1,9 @@
+Pods
+Podfile.lock
+
+*.mlmodel
+*.jpeg
+*.jpg
+*.scn
+*.png
+*.wav
