@@ -7,3 +7,4 @@ Podfile.lock
 *.scn
 *.png
 *.wav
+venv
