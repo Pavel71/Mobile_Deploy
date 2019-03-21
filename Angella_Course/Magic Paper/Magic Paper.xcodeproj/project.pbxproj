@@ -1,0 +1,349 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F1CE71962243713C0049FBBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CE71952243713C0049FBBC /* AppDelegate.swift */; };
+		F1CE71982243713C0049FBBC /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F1CE71972243713C0049FBBC /* art.scnassets */; };
+		F1CE719A2243713C0049FBBC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CE71992243713C0049FBBC /* ViewController.swift */; };
+		F1CE719D2243713C0049FBBC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1CE719B2243713C0049FBBC /* Main.storyboard */; };
+		F1CE719F2243713E0049FBBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1CE719E2243713E0049FBBC /* Assets.xcassets */; };
+		F1CE71A22243713E0049FBBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1CE71A02243713E0049FBBC /* LaunchScreen.storyboard */; };
+		F1CE71AA224371BF0049FBBC /* harrypotter.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F1CE71A9224371BF0049FBBC /* harrypotter.mp4 */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F1CE71922243713C0049FBBC /* Magic Paper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Magic Paper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1CE71952243713C0049FBBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F1CE71972243713C0049FBBC /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		F1CE71992243713C0049FBBC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F1CE719C2243713C0049FBBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F1CE719E2243713E0049FBBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F1CE71A12243713E0049FBBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F1CE71A32243713E0049FBBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1CE71A9224371BF0049FBBC /* harrypotter.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = harrypotter.mp4; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F1CE718F2243713C0049FBBC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F1CE71892243713C0049FBBC = {
+			isa = PBXGroup;
+			children = (
+				F1CE71942243713C0049FBBC /* Magic Paper */,
+				F1CE71932243713C0049FBBC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F1CE71932243713C0049FBBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F1CE71922243713C0049FBBC /* Magic Paper.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F1CE71942243713C0049FBBC /* Magic Paper */ = {
+			isa = PBXGroup;
+			children = (
+				F1CE71A9224371BF0049FBBC /* harrypotter.mp4 */,
+				F1CE71952243713C0049FBBC /* AppDelegate.swift */,
+				F1CE71972243713C0049FBBC /* art.scnassets */,
+				F1CE71992243713C0049FBBC /* ViewController.swift */,
+				F1CE719B2243713C0049FBBC /* Main.storyboard */,
+				F1CE719E2243713E0049FBBC /* Assets.xcassets */,
+				F1CE71A02243713E0049FBBC /* LaunchScreen.storyboard */,
+				F1CE71A32243713E0049FBBC /* Info.plist */,
+			);
+			path = "Magic Paper";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F1CE71912243713C0049FBBC /* Magic Paper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1CE71A62243713E0049FBBC /* Build configuration list for PBXNativeTarget "Magic Paper" */;
+			buildPhases = (
+				F1CE718E2243713C0049FBBC /* Sources */,
+				F1CE718F2243713C0049FBBC /* Frameworks */,
+				F1CE71902243713C0049FBBC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Magic Paper";
+			productName = "Magic Paper";
+			productReference = F1CE71922243713C0049FBBC /* Magic Paper.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F1CE718A2243713C0049FBBC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = PavelM;
+				TargetAttributes = {
+					F1CE71912243713C0049FBBC = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = F1CE718D2243713C0049FBBC /* Build configuration list for PBXProject "Magic Paper" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F1CE71892243713C0049FBBC;
+			productRefGroup = F1CE71932243713C0049FBBC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F1CE71912243713C0049FBBC /* Magic Paper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F1CE71902243713C0049FBBC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1CE71982243713C0049FBBC /* art.scnassets in Resources */,
+				F1CE71A22243713E0049FBBC /* LaunchScreen.storyboard in Resources */,
+				F1CE71AA224371BF0049FBBC /* harrypotter.mp4 in Resources */,
+				F1CE719F2243713E0049FBBC /* Assets.xcassets in Resources */,
+				F1CE719D2243713C0049FBBC /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F1CE718E2243713C0049FBBC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1CE719A2243713C0049FBBC /* ViewController.swift in Sources */,
+				F1CE71962243713C0049FBBC /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F1CE719B2243713C0049FBBC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1CE719C2243713C0049FBBC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F1CE71A02243713E0049FBBC /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1CE71A12243713E0049FBBC /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F1CE71A42243713E0049FBBC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F1CE71A52243713E0049FBBC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F1CE71A72243713E0049FBBC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CYVRG4B3R9;
+				INFOPLIST_FILE = "Magic Paper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Pavel.M.Magic-Paper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F1CE71A82243713E0049FBBC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CYVRG4B3R9;
+				INFOPLIST_FILE = "Magic Paper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Pavel.M.Magic-Paper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F1CE718D2243713C0049FBBC /* Build configuration list for PBXProject "Magic Paper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1CE71A42243713E0049FBBC /* Debug */,
+				F1CE71A52243713E0049FBBC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1CE71A62243713E0049FBBC /* Build configuration list for PBXNativeTarget "Magic Paper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1CE71A72243713E0049FBBC /* Debug */,
+				F1CE71A82243713E0049FBBC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F1CE718A2243713C0049FBBC /* Project object */;
+}
